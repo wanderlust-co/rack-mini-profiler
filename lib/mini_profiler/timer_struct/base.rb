@@ -24,6 +24,7 @@ module Rack
         def to_json(*a)
           # this does could take in an option hash, but the only interesting there is max_nesting.
           #   if this becomes an option we could increase
+          @attributes.map { |k,v| [k,v.try(:force_encoding,'utf-8')] }.to_h
           ::JSON.generate( @attributes, :max_nesting => 100 )
         end
 
